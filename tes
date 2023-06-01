@@ -1,0 +1,262 @@
+import Card from "./pages/card";
+import Button from "./pages/button";
+function App() {
+    return (
+        <>
+            <div className="flex justify-center items-center bg-slate-700 min-h-screen">
+                <div className=" flex items-center gap-4 max-w-4xl w-full">
+                    <Card>
+                        <Card.Title>HELO REACT</Card.Title>
+                        <Card.Body>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente et consectetur praesentium
+                            tempore voluptatibus possimus ullam voluptates id, ea natus, reiciendis iste. Ipsum nostrum
+                            assumenda doloremque repellendus, praesentium veniam deleniti?
+                        </Card.Body>
+                        <Card.Footer>
+                            <Button>REGISTER</Button>
+                        </Card.Footer>
+                    </Card>
+
+                    <Card>
+                        <Card.Title>HELO REACT</Card.Title>
+                        <Card.Body>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente et consectetur praesentium
+                            tempore voluptatibus possimus ullam voluptates id, ea natus, reiciendis iste. Ipsum nostrum
+                            assumenda doloremque repellendus, praesentium veniam deleniti?
+                        </Card.Body>
+                        <Card.Footer>
+                            <Button>REGISTER</Button>
+                        </Card.Footer>
+                    </Card>
+
+                    <Card>
+                        <Card.Title>HELO REACT</Card.Title>
+                        <Card.Body>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente et consectetur praesentium
+                            tempore voluptatibus possimus ullam voluptates id, ea natus, reiciendis iste. Ipsum nostrum
+                            assumenda doloremque repellendus, praesentium veniam deleniti?
+                        </Card.Body>
+                        <Card.Footer>
+                            <Button>REGISTER</Button>
+                        </Card.Footer>
+                    </Card>
+                </div>
+            </div>
+        </>
+    );
+}
+
+function App() {
+    const [form, setForm] = useState({ name: "", email: "" });
+
+    const inputHandler = (event) => {
+        setForm({ ...form, [event.target.name]: event.target.value });
+    };
+    function submit(event) {
+        event.preventDefault();
+        console.log(form);
+    }
+
+    return (
+        <PlaceContentCenter>
+            <Card>
+                <Card.Title>Sign in from acount</Card.Title>
+                <form onSubmit={submit}>
+                    <Card.Body>
+                        <div className="mb-2">
+                            <Label htmlFor="email" value="NAME" />
+                            <Input name={"name"} value={form.name} onChange={inputHandler} id={"name"} />
+                        </div>
+                        <div className="mb-2">
+                            <Label htmlFor="email" value="EMAIL" />
+                            <Input
+                                name={"email"}
+                                id={"email"}
+                                value={form.email}
+                                onChange={inputHandler}
+                                type="email"
+                            />
+                        </div>
+                    </Card.Body>
+                    <Card.Footer>
+                        <Button>
+                            <IconBrandGithub />
+                            REGISTER
+                        </Button>
+                    </Card.Footer>
+                </form>
+            </Card>
+        </PlaceContentCenter>
+    );
+}
+
+const [newTaks, setNewTask] = useState("");
+const [tasks, setTasks] = useState([]);
+function handleClick(e) {
+    e.preventDefault();
+    setTasks((prevtasks) => [
+        ...prevtasks,
+        {
+            id: Math.floor(Math.random() * Date.now()),
+            name: newTaks,
+            completed: false,
+        },
+    ]);
+    setNewTask(" ");
+}
+function handleCompletedTask(id) {
+    const updateTask = tasks.map((task) => {
+        if (id === task.id) {
+            return {
+                ...task,
+                completed: true,
+            };
+        }
+        return tasks;
+    });
+    setTasks(updateTask);
+}
+function handleRemoveTask(id) {
+    const removeTask = tasks.filter((task) => id !== task.id);
+    setTasks(removeTask);
+}
+return (
+    <Card>
+        <Card.Title>tasks</Card.Title>
+        <Card.Body>
+            <form>
+                <div className="flex items-center gap-2">
+                    <Input value={newTaks} onChange={(e) => setNewTask(e.target.value)} />
+                    <Button onClick={handleClick} tombol={"ADD"} />
+                </div>
+            </form>
+            {tasks.length > 0 ? (
+                <ol className="space-y-2 mt-4">
+                    {tasks.map((tasks) => {
+                        return (
+                            <li key={tasks.id} className={"flex items-center justify-between"}>
+                                <span>
+                                    {tasks.name}
+                                    {tasks.completed ? "✔" : "❌"}
+                                </span>
+                                <div className="flex items-center gap-x-2">
+                                    <button
+                                        onClick={() => handleCompletedTask(tasks.id)}
+                                        className="px-2 py-1 border text-xs"
+                                    >
+                                        complete
+                                    </button>
+                                    <button
+                                        onClick={() => handleRemoveTask(tasks.id)}
+                                        className="px-2 py-1 border text-xs"
+                                    >
+                                        remove
+                                    </button>
+                                </div>
+                            </li>
+                        );
+                    })}
+                </ol>
+            ) : null}
+        </Card.Body>
+        <Card.Footer>You have {tasks.length} taskss</Card.Footer>
+    </Card>
+);
+
+// tombol github login facebook
+
+import { IconBrandFacebook, IconBrandGithub, IconBrandTwitter } from "@tabler/icons-react";
+
+export default function App() {
+    return (
+        <>
+            <div className="grid place-content-center bg-slate-600 min-h-screen">
+                <div className="flex gap-x-2">
+                    <Button onClick={() => console.log("login")} type="submit">
+                        <IconBrandFacebook />
+                        LOGIN
+                    </Button>
+                    <Button className="bg-pink-400" onClick={() => console.log("register")} type="submit">
+                        <IconBrandTwitter />
+                        LOGIN
+                    </Button>
+                    <Button onClick={() => console.log("register")} type="submit">
+                        <IconBrandGithub />
+                        LOGIN
+                    </Button>
+                </div>
+            </div>
+        </>
+    );
+}
+
+function Button(props) {
+    const { className = "bg-blue-500", tombol, children } = props;
+    return (
+        <button
+            {...props}
+            className={`${className} [&>svg]:w-5 [&>svg]:h-5 [&>svg]:stroke-1 flex items-center gap-x-2 px-4 py-2 rounded text-white font-bold`}
+        >
+            {props.tombol || props.children}
+        </button>
+    );
+}
+useState dengan object 
+import PlaceContentCenter from "./pages/PlaceContentCenter";
+import Card from "./pages/card";
+import Button from "./pages/button";
+import Label from "./pages/label";
+import Input from "./pages/input";
+import { IconBrandGithub } from "@tabler/icons-react";
+import "./App.css";
+
+// import "./App.css";
+import { useState } from "react";
+export default function App() {
+    const [form, setForm] = useState({ name: "---", email: "---" });
+
+    const inputHandler = (event) => {
+        setForm({ ...form, [event.target.email]: event.target.value });
+    };
+    function submit(event) {
+        event.preventDefault();
+        console.log(form);
+    }
+
+    return (
+        <PlaceContentCenter>
+            <Card>
+                <Card.Title>Sign in from acount</Card.Title>
+
+                <form onSubmit={submit}>
+                    <Card.Body>
+                        <div className="border  rounded-md p-4">
+                            <p>nama : {form.name || "---"}</p>
+                            <p>email : {form.email || "---"}</p>
+                        </div>
+                        <div className="mb-2">
+                            <Label htmlFor="name" value="NAME" />
+                            <Input name={"name"} value={form.name} onChange={inputHandler} type="text" id={"name"} />
+                        </div>
+                        <div className="mb-2">
+                            <Label htmlFor="email" value="EMAIL" />
+                            <Input
+                                name={"email"}
+                                id={"email"}
+                                value={form.email}
+                                onChange={inputHandler}
+                                type="email"
+                            />
+                        </div>
+                    </Card.Body>
+                    <Card.Footer>
+                        <Button>
+                            <IconBrandGithub />
+                            REGISTER
+                        </Button>
+                    </Card.Footer>
+                </form>
+            </Card>
+        </PlaceContentCenter>
+    );
+}
